@@ -114,7 +114,7 @@ abstract class SinkOperation {
     @Override
     public void add(byte[] key, byte[] value) {
       this.sets.put(key, value);
-      log.info("version de db = "+value);
+      log.info("version de db = " + value);
     }
 
     @Override
