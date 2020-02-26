@@ -141,9 +141,12 @@ abstract class SinkOperation {
         byte[] key_byte = child_sku.getBytes();
         byte[] field_byte = type.getBytes();
         byte[] value_byte = price.getBytes();
+        log.info("flag1");
         RedisFuture<?> future2 = asyncCommands.hset(key_byte, field_byte, value_byte);
         wait(future2);
+        log.info("flag2");
       }
+      log.info("flag3");
       //asyncCommands.hset()
       //wait(future);
     }
