@@ -131,14 +131,11 @@ abstract class SinkOperation {
         byte[] value = entry.getValue();
         String value_string = new String(value);
         //String key_string = new String(key);
-        JsonObject json = new Gson().fromJson(value_string, JsonObject.class);
-
-        String price = json.get("price").getAsJsonPrimitive().getAsString();
-        String child_sku = json.get("child_sku").getAsJsonPrimitive().getAsString();
-        String type = json.get("type").getAsJsonPrimitive().getAsString();
-        //String price = json.get("price").toString();
-        //String child_sku = json.get("child_sku").toString();
-        //String type = json.get("type").toString();
+        Gson gson = new Gson();
+        JsonObject json = gson.fromJson(value_string, JsonObject.class);
+        String price = json.get("price").toString();
+        String child_sku = json.get("child_sku").toString();
+        String type = json.get("type").toString();
         log.info("price = " + price + "  child_sku = " + child_sku + "  type = " + type);
       }
       //asyncCommands.hset()
