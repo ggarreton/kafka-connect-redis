@@ -133,7 +133,7 @@ abstract class SinkOperation {
         //String key_string = new String(key);
         //log
         Gson gson = new Gson();
-        log.info("value_string es:  " + value_string);
+        log.info("fields to insert:  " + value_string);
         JsonObject json = gson.fromJson(value_string, JsonObject.class);
         if(json.get("price") != null || json.get("type") != null || json.get("type") != null){
           String price = json.get("price").toString();
@@ -143,15 +143,12 @@ abstract class SinkOperation {
           byte[] key_byte = child_sku.getBytes();
           byte[] field_byte = type.getBytes();
           byte[] value_byte = price.getBytes();
-          log.info("flag1");
-          RedisFuture<?> future2 = asyncCommands.hset(key_byte, field_byte, value_byte);
-          wait(future2);
-          log.info("flag2");
+          String key_debug = new String(key_byte);
+          log.info("debuging key" + key_debug);
+          RedisFuture<?> future = asyncCommands.hset(key_byte, field_byte, value_byte);
+          wait(future);
         }
-        log.info("flag3");
       }
-      log.info("flag4");
-      //asyncCommands.hset()
       //wait(future);
     }
 
