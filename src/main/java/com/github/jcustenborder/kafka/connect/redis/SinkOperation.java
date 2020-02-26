@@ -140,6 +140,7 @@ abstract class SinkOperation {
           String child_sku = json.get("child_sku").toString();
           String type = json.get("type").toString();
           log.info("price = " + price + "  child_sku = " + child_sku + "  type = " + type);
+          child_sku = child_sku.replaceAll("^\"|\"$", "");
           byte[] key_byte = child_sku.getBytes();
           byte[] field_byte = type.getBytes();
           byte[] value_byte = price.getBytes();
