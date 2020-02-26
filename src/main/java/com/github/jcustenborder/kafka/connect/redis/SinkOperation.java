@@ -114,13 +114,22 @@ abstract class SinkOperation {
     @Override
     public void add(byte[] key, byte[] value) {
       this.sets.put(key, value);
-      log.info("version de db = " + value);
+      //log.info("version de db = " + value);
     }
 
     @Override
     public void execute(RedisClusterAsyncCommands<byte[], byte[]> asyncCommands) throws InterruptedException {
       log.debug("execute() - Calling mset with {} value(s)", this.sets.size());
       RedisFuture<?> future = asyncCommands.mset(this.sets);
+
+      for (Map.Entry<byte[], byte[]> entry : this.sets.entrySet()) {
+        byte[] key = entry.getKey();
+        byte[] value = entry.getValue();
+        String value_string = new String(value);
+        String key_string = new String(key);
+        log.info("value = " + value_string + "  key = " + key_string);
+      }
+      //asyncCommands.hset()
       wait(future);
     }
 
