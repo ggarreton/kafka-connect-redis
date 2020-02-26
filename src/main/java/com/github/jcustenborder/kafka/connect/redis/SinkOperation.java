@@ -127,15 +127,18 @@ abstract class SinkOperation {
       RedisFuture<?> future = asyncCommands.mset(this.sets);
       for (Map.Entry<byte[], byte[]> entry :
               this.sets.entrySet()) {
-        byte[] key = entry.getKey();
+        //byte[] key = entry.getKey();
         byte[] value = entry.getValue();
         String value_string = new String(value);
-        String key_string = new String(key);
-        Gson gson = new Gson();
-        JsonObject jobj = new Gson().fromJson(value_string, JsonObject.class);
-        String price = jobj.get("price").toString();
-        String child_sku = jobj.get("child_sku").toString();
-        String type = jobj.get("type").toString();
+        //String key_string = new String(key);
+        JsonObject json = new Gson().fromJson(value_string, JsonObject.class);
+
+        String price = json.get("price").getAsJsonPrimitive().getAsString();
+        String child_sku = json.get("child_sku").getAsJsonPrimitive().getAsString();
+        String type = json.get("type").getAsJsonPrimitive().getAsString();
+        //String price = json.get("price").toString();
+        //String child_sku = json.get("child_sku").toString();
+        //String type = json.get("type").toString();
         log.info("price = " + price + "  child_sku = " + child_sku + "  type = " + type);
       }
       //asyncCommands.hset()
