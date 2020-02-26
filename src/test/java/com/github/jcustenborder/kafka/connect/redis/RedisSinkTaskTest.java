@@ -135,11 +135,11 @@ public class RedisSinkTaskTest {
   @Test
   public void put() throws InterruptedException {
     List<SinkRecord> records = Arrays.asList(
-        record("set1", "asdf"),
-        record("set2", "asdf"),
-        record("delete1", null),
-        record("set3", "asdf"),
-        record("set4", "asdf")
+        record("set1", "{\"price\":23,\"child_sku\":\"15\",\"type\":101}"),
+        //record("set2", "asdf"),
+        //record("delete1", null),
+        //record("set3", "asdf"),
+        //record("set4", "asdf")
     );
 
     task.put(records);
