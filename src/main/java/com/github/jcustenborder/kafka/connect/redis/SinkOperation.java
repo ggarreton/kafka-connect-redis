@@ -128,24 +128,22 @@ abstract class SinkOperation {
       for (Map.Entry<byte[], byte[]> entry :
               this.sets.entrySet()) {
         //byte[] key = entry.getKey();
-        byte[] value = entry.getValue();
-        String value_string = new String(value);
         //String key_string = new String(key);
-        //log
+        byte[] value_raw = entry.getValue();
+        String value_string = new String(value_raw);
         Gson gson = new Gson();
-        log.info("fields to insert:  " + value_string);
         JsonObject json = gson.fromJson(value_string, JsonObject.class);
-        if(json.get("price") != null || json.get("type") != null || json.get("type") != null){
-          String price = json.get("price").toString();
-          String child_sku = json.get("child_sku").toString();
-          String type = json.get("type").toString();
-          log.info("price = " + price + "  child_sku = " + child_sku + "  type = " + type);
-          child_sku = child_sku.replaceAll("^\"|\"$", "");
-          byte[] key_byte = child_sku.getBytes();
-          byte[] field_byte = type.getBytes();
-          byte[] value_byte = price.getBytes();
-          String key_debug = new String(key_byte);
-          log.info("debuging key" + key_debug);
+        if(json.get("key") != null || json.get("field") != null || json.get("value") != null){
+          String key = json.get("key").toString();
+          String field = json.get("field").toString();
+          String value = json.get("value").toString();
+          log.info("key = " + key + "  field = " + field + "  value = " + value);
+          key = key.replaceAll("^\"|\"$", "");
+          field = field.replaceAll("^\"|\"$", "");
+          value = value.replaceAll("^\"|\"$", "");
+          byte[] key_byte = key.getBytes();
+          byte[] field_byte = field.getBytes();
+          byte[] value_byte = value.getBytes();
           RedisFuture<?> future = asyncCommands.hset(key_byte, field_byte, value_byte);
           wait(future);
         }
