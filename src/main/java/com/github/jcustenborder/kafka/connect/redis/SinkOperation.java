@@ -15,6 +15,8 @@
  */
 package com.github.jcustenborder.kafka.connect.redis;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import io.lettuce.core.RedisFuture;
 import io.lettuce.core.cluster.api.async.RedisClusterAsyncCommands;
 import org.apache.kafka.connect.errors.RetriableException;
@@ -117,6 +119,8 @@ abstract class SinkOperation {
       //log.info("version de db = " + value);
     }
 
+
+
     @Override
     public void execute(RedisClusterAsyncCommands<byte[], byte[]> asyncCommands) throws InterruptedException {
       log.debug("execute() - Calling mset with {} value(s)", this.sets.size());
@@ -127,7 +131,12 @@ abstract class SinkOperation {
         byte[] value = entry.getValue();
         String value_string = new String(value);
         String key_string = new String(key);
-        log.info("value = " + value_string + "  key = " + key_string);
+        Gson gson = new Gson();
+        JsonObject jobj = new Gson().fromJson(value_string, JsonObject.class);
+        String price = jobj.get("price").toString();
+        String child_sku = jobj.get("child_sku").toString();
+        String type = jobj.get("type").toString();
+        log.info("price = " + price + "  child_sku = " + child_sku + "  type = " + type);
       }
       //asyncCommands.hset()
       wait(future);
