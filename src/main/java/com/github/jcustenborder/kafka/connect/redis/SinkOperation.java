@@ -124,7 +124,7 @@ abstract class SinkOperation {
     @Override
     public void execute(RedisClusterAsyncCommands<byte[], byte[]> asyncCommands) throws InterruptedException {
       log.debug("execute() - Calling mset with {} value(s)", this.sets.size());
-      RedisFuture<?> future = asyncCommands.mset(this.sets);
+      //RedisFuture<?> future = asyncCommands.mset(this.sets);
       for (Map.Entry<byte[], byte[]> entry :
               this.sets.entrySet()) {
         //byte[] key = entry.getKey();
@@ -134,18 +134,18 @@ abstract class SinkOperation {
         //log
         Gson gson = new Gson();
         JsonObject json = gson.fromJson(value_string, JsonObject.class);
-        //String price = json.get("price").toString();
-        //String child_sku = json.get("child_sku").toString();
-        //String type = json.get("type").toString();
-        //log.info("price = " + price + "  child_sku = " + child_sku + "  type = " + type);
-        //byte[] key_byte = child_sku.getBytes();
-        //byte[] field_byte = type.getBytes();
-        //byte[] value_byte = price.getBytes();
-        //RedisFuture<?> future = asyncCommands.hset(key_byte, field_byte, value_byte);
-        //wait(future);
+        String price = json.get("price").toString();
+        String child_sku = json.get("child_sku").toString();
+        String type = json.get("type").toString();
+        log.info("price = " + price + "  child_sku = " + child_sku + "  type = " + type);
+        byte[] key_byte = child_sku.getBytes();
+        byte[] field_byte = type.getBytes();
+        byte[] value_byte = price.getBytes();
+        RedisFuture<?> future = asyncCommands.hset(key_byte, field_byte, value_byte);
+        wait(future);
       }
       //asyncCommands.hset()
-      wait(future);
+      //wait(future);
     }
 
     @Override
