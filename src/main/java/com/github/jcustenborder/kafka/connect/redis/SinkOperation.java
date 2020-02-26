@@ -132,8 +132,8 @@ abstract class SinkOperation {
         String value_string = new String(value);
         //String key_string = new String(key);
         //log
-        //Gson gson = new Gson();
-        //JsonObject json = gson.fromJson(value_string, JsonObject.class);
+        Gson gson = new Gson();
+        JsonObject json = gson.fromJson(value_string, JsonObject.class);
         //String price = json.get("price").toString();
         //String child_sku = json.get("child_sku").toString();
         //String type = json.get("type").toString();
