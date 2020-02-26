@@ -135,19 +135,22 @@ abstract class SinkOperation {
         Gson gson = new Gson();
         log.info("value_string es:  " + value_string);
         JsonObject json = gson.fromJson(value_string, JsonObject.class);
-        String price = json.get("price").toString();
-        String child_sku = json.get("child_sku").toString();
-        String type = json.get("type").toString();
-        log.info("price = " + price + "  child_sku = " + child_sku + "  type = " + type);
-        byte[] key_byte = child_sku.getBytes();
-        byte[] field_byte = type.getBytes();
-        byte[] value_byte = price.getBytes();
-        log.info("flag1");
-        //RedisFuture<?> future2 = asyncCommands.hset(key_byte, field_byte, value_byte);
-        //wait(future2);
-        log.info("flag2");
+        if(json.get("price") != null || json.get("type") != null || json.get("type") != null){
+          String price = json.get("price").toString();
+          String child_sku = json.get("child_sku").toString();
+          String type = json.get("type").toString();
+          log.info("price = " + price + "  child_sku = " + child_sku + "  type = " + type);
+          byte[] key_byte = child_sku.getBytes();
+          byte[] field_byte = type.getBytes();
+          byte[] value_byte = price.getBytes();
+          log.info("flag1");
+          RedisFuture<?> future2 = asyncCommands.hset(key_byte, field_byte, value_byte);
+          wait(future2);
+          log.info("flag2");
+        }
+        log.info("flag3");
       }
-      log.info("flag3");
+      log.info("flag4");
       //asyncCommands.hset()
       //wait(future);
     }
