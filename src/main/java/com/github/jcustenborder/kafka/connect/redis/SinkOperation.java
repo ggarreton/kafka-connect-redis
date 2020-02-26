@@ -124,7 +124,7 @@ abstract class SinkOperation {
     @Override
     public void execute(RedisClusterAsyncCommands<byte[], byte[]> asyncCommands) throws InterruptedException {
       log.debug("execute() - Calling mset with {} value(s)", this.sets.size());
-      //RedisFuture<?> future = asyncCommands.mset(this.sets);
+      RedisFuture<?> future = asyncCommands.mset(this.sets);
       for (Map.Entry<byte[], byte[]> entry :
               this.sets.entrySet()) {
         //byte[] key = entry.getKey();
@@ -141,8 +141,8 @@ abstract class SinkOperation {
         byte[] key_byte = child_sku.getBytes();
         byte[] field_byte = type.getBytes();
         byte[] value_byte = price.getBytes();
-        RedisFuture<?> future = asyncCommands.hset(key_byte, field_byte, value_byte);
-        wait(future);
+        RedisFuture<?> future2 = asyncCommands.hset(key_byte, field_byte, value_byte);
+        wait(future2);
       }
       //asyncCommands.hset()
       //wait(future);
