@@ -1,4 +1,4 @@
-package com.github.jcustenborder.kafka.connect.redis;
+package com.github.jcustenborder.kafka.connect.redis.hset;
 
 import com.google.common.net.HostAndPort;
 import org.apache.kafka.common.config.ConfigException;

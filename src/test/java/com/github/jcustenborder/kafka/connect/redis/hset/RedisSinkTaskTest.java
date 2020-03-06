@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jcustenborder.kafka.connect.redis;
+package com.github.jcustenborder.kafka.connect.redis.hset;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Strings;

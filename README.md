@@ -244,7 +244,7 @@ This configuration is used typically along with [standalone mode](http://docs.co
 
 ```properties
 name=RedisSinkConnector1
-connector.class=com.github.jcustenborder.kafka.connect.redis.RedisSinkConnector
+connector.class=RedisSinkConnector
 tasks.max=1
 topics=< Required Configuration >
 ```
@@ -259,7 +259,7 @@ post the configuration to one the distributed connect worker(s).
 {
   "config" : {
     "name" : "RedisSinkConnector1",
-    "connector.class" : "com.github.jcustenborder.kafka.connect.redis.RedisSinkConnector",
+    "connector.class" : "RedisSinkConnector",
     "tasks.max" : "1",
     "topics" : "< Required Configuration >"
   }

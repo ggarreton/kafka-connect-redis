@@ -13,16 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jcustenborder.kafka.connect.redis;
+package com.github.jcustenborder.kafka.connect.redis.hset;
 
-import io.lettuce.core.AbstractRedisClient;
-import io.lettuce.core.api.StatefulConnection;
-import io.lettuce.core.cluster.api.async.RedisClusterAsyncCommands;
+import com.github.jcustenborder.kafka.connect.utils.BaseDocumentationTest;
 
-public interface RedisSession extends AutoCloseable {
-  AbstractRedisClient client();
+public class DocumentationTest extends BaseDocumentationTest {
 
-  StatefulConnection connection();
-
-  RedisClusterAsyncCommands<byte[], byte[]> asyncCommands();
 }
