@@ -25,9 +25,9 @@
         <artifactId>kafka-connect-parent</artifactId>
         <version>2.2.1-cp1</version>
     </parent>
-    <artifactId>kafka-connect-redis</artifactId>
+    <artifactId>kafka-connect-redis-hset</artifactId>
     <version>0.0.2-SNAPSHOT</version>
-    <name>kafka-connect-redis</name>
+    <name>kafka-connect-redis-hset</name>
     <description>A Kafka Connect plugin for interacting with Redis.</description>
     <url>https://github.com/jcustenborder/kafka-connect-redis</url>
     <inceptionYear>2017</inceptionYear>
